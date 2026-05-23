@@ -1,0 +1,607 @@
+{
+  "version": 1,
+  "source": "Universal SensorHub Sensor Database",
+  "github": "https://github.com/houslast3/esp32-sensors",
+  "sensors": [
+    {
+      "id": "bme280",
+      "name": "BME280",
+      "manufacturer": "Bosch",
+      "type": "I2C",
+      "description": "Temperatura, Umidade, Pressao barometrica",
+      "addresses": ["0x76", "0x77"],
+      "protocol": {"bus": "I2C", "speed_hz": 100000, "reg_width": 8},
+      "vars": [
+        {"name": "bme280_temp", "unit": "°C", "decimals": 2, "formula": "((raw >> 16) & 0xFF) | ((raw >> 8) & 0xFF00) | (raw & 0xFF0000)"},
+        {"name": "bme280_hum", "unit": "%", "decimals": 2, "formula": "raw & 0xFFFF"},
+        {"name": "bme280_press", "unit": "hPa", "decimals": 2, "formula": "(raw >> 8) & 0xFFFFFF"}
+      ],
+      "test_code_url": "https://raw.githubusercontent.com/houslast3/esp32-sensors/main/code/bme280.c"
+    },
+    {
+      "id": "bmp180",
+      "name": "BMP180",
+      "manufacturer": "Bosch",
+      "type": "I2C",
+      "description": "Pressao barometrica e temperatura",
+      "addresses": ["0x77"],
+      "protocol": {"bus": "I2C", "speed_hz": 100000, "reg_width": 8},
+      "vars": [
+        {"name": "bmp180_temp", "unit": "°C", "decimals": 1, "formula": "raw * 0.1"},
+        {"name": "bmp180_press", "unit": "hPa", "decimals": 1, "formula": "raw * 0.01"}
+      ],
+      "test_code_url": "https://raw.githubusercontent.com/houslast3/esp32-sensors/main/code/bmp180.c"
+    },
+    {
+      "id": "mpu6050",
+      "name": "MPU6050",
+      "manufacturer": "InvenSense",
+      "type": "I2C",
+      "description": "Acelerometro 3-axis + Giroscopio 3-axis",
+      "addresses": ["0x68", "0x69"],
+      "protocol": {"bus": "I2C", "speed_hz": 400000, "reg_width": 8},
+      "vars": [
+        {"name": "mpu6050_ax", "unit": "g", "decimals": 3, "formula": "raw / 16384.0"},
+        {"name": "mpu6050_ay", "unit": "g", "decimals": 3, "formula": "raw / 16384.0"},
+        {"name": "mpu6050_az", "unit": "g", "decimals": 3, "formula": "raw / 16384.0"},
+        {"name": "mpu6050_gx", "unit": "°/s", "decimals": 1, "formula": "raw / 131.0"},
+        {"name": "mpu6050_gy", "unit": "°/s", "decimals": 1, "formula": "raw / 131.0"},
+        {"name": "mpu6050_gz", "unit": "°/s", "decimals": 1, "formula": "raw / 131.0"}
+      ],
+      "test_code_url": "https://raw.githubusercontent.com/houslast3/esp32-sensors/main/code/mpu6050.c"
+    },
+    {
+      "id": "bh1750",
+      "name": "BH1750",
+      "manufacturer": "ROHM",
+      "type": "I2C",
+      "description": "Sensor de luz ambiente digital",
+      "addresses": ["0x23", "0x5C"],
+      "protocol": {"bus": "I2C", "speed_hz": 100000, "reg_width": 8},
+      "vars": [
+        {"name": "bh1750_lux", "unit": "lux", "decimals": 1, "formula": "raw / 1.2"}
+      ],
+      "test_code_url": "https://raw.githubusercontent.com/houslast3/esp32-sensors/main/code/bh1750.c"
+    },
+    {
+      "id": "sht30",
+      "name": "SHT30",
+      "manufacturer": "Sensirion",
+      "type": "I2C",
+      "description": "Temperatura e Umidade de alta precisao",
+      "addresses": ["0x44", "0x45"],
+      "protocol": {"bus": "I2C", "speed_hz": 100000, "reg_width": 16},
+      "vars": [
+        {"name": "sht30_temp", "unit": "°C", "decimals": 2, "formula": "-45 + 175 * raw / 65535.0"},
+        {"name": "sht30_hum", "unit": "%", "decimals": 2, "formula": "100 * raw / 65535.0"}
+      ],
+      "test_code_url": "https://raw.githubusercontent.com/houslast3/esp32-sensors/main/code/sht30.c"
+    },
+    {
+      "id": "sht31",
+      "name": "SHT31",
+      "manufacturer": "Sensirion",
+      "type": "I2C",
+      "description": "Temperatura e Umidade precisao industrial",
+      "addresses": ["0x44", "0x45"],
+      "protocol": {"bus": "I2C", "speed_hz": 100000, "reg_width": 16},
+      "vars": [
+        {"name": "sht31_temp", "unit": "°C", "decimals": 2, "formula": "-45 + 175 * raw / 65535.0"},
+        {"name": "sht31_hum", "unit": "%", "decimals": 2, "formula": "100 * raw / 65535.0"}
+      ],
+      "test_code_url": "https://raw.githubusercontent.com/houslast3/esp32-sensors/main/code/sht31.c"
+    },
+    {
+      "id": "ads1115",
+      "name": "ADS1115",
+      "manufacturer": "Texas Instruments",
+      "type": "I2C",
+      "description": "ADC 16-bit 4-canais",
+      "addresses": ["0x48", "0x49", "0x4A", "0x4B"],
+      "protocol": {"bus": "I2C", "speed_hz": 400000, "reg_width": 16},
+      "vars": [
+        {"name": "ads1115_ch0", "unit": "V", "decimals": 4, "formula": "raw * 4.096 / 32768.0"},
+        {"name": "ads1115_ch1", "unit": "V", "decimals": 4, "formula": "raw * 4.096 / 32768.0"},
+        {"name": "ads1115_ch2", "unit": "V", "decimals": 4, "formula": "raw * 4.096 / 32768.0"},
+        {"name": "ads1115_ch3", "unit": "V", "decimals": 4, "formula": "raw * 4.096 / 32768.0"}
+      ],
+      "test_code_url": "https://raw.githubusercontent.com/houslast3/esp32-sensors/main/code/ads1115.c"
+    },
+    {
+      "id": "mcp9808",
+      "name": "MCP9808",
+      "manufacturer": "Microchip",
+      "type": "I2C",
+      "description": "Sensor de temperatura precisao ±0.25°C",
+      "addresses": ["0x18", "0x19", "0x1A", "0x1B", "0x1C", "0x1D", "0x1E", "0x1F"],
+      "protocol": {"bus": "I2C", "speed_hz": 100000, "reg_width": 16},
+      "vars": [
+        {"name": "mcp9808_temp", "unit": "°C", "decimals": 3, "formula": "(raw & 0x0FFF) * 0.0625"}
+      ],
+      "test_code_url": "https://raw.githubusercontent.com/houslast3/esp32-sensors/main/code/mcp9808.c"
+    },
+    {
+      "id": "max30102",
+      "name": "MAX30102",
+      "manufacturer": "Maxim",
+      "type": "I2C",
+      "description": "Oximetro e frequencia cardiaca",
+      "addresses": ["0x57"],
+      "protocol": {"bus": "I2C", "speed_hz": 400000, "reg_width": 8},
+      "vars": [
+        {"name": "max30102_hr", "unit": "bpm", "decimals": 0, "formula": "raw"},
+        {"name": "max30102_spo2", "unit": "%", "decimals": 0, "formula": "raw"}
+      ],
+      "test_code_url": "https://raw.githubusercontent.com/houslast3/esp32-sensors/main/code/max30102.c"
+    },
+    {
+      "id": "tca9548",
+      "name": "TCA9548A",
+      "manufacturer": "Texas Instruments",
+      "type": "I2C",
+      "description": "Multiplexador I2C 8-canais",
+      "addresses": ["0x70", "0x71", "0x72", "0x73", "0x74", "0x75", "0x76", "0x77"],
+      "protocol": {"bus": "I2C", "speed_hz": 100000, "reg_width": 8},
+      "vars": [],
+      "test_code_url": "https://raw.githubusercontent.com/houslast3/esp32-sensors/main/code/tca9548.c"
+    },
+    {
+      "id": "ssd1306",
+      "name": "SSD1306",
+      "manufacturer": "Solomon Systech",
+      "type": "I2C",
+      "description": "Display OLED 128x64 monocromatico",
+      "addresses": ["0x3C", "0x3D"],
+      "protocol": {"bus": "I2C", "speed_hz": 400000, "reg_width": 8},
+      "vars": [],
+      "test_code_url": "https://raw.githubusercontent.com/houslast3/esp32-sensors/main/code/ssd1306.c"
+    },
+    {
+      "id": "vl53l0x",
+      "name": "VL53L0X",
+      "manufacturer": "STMicroelectronics",
+      "type": "I2C",
+      "description": "Sensor de distancia laser (TOF) ate 2m",
+      "addresses": ["0x29"],
+      "protocol": {"bus": "I2C", "speed_hz": 400000, "reg_width": 8},
+      "vars": [
+        {"name": "vl53l0x_dist", "unit": "mm", "decimals": 0, "formula": "raw"}
+      ],
+      "test_code_url": "https://raw.githubusercontent.com/houslast3/esp32-sensors/main/code/vl53l0x.c"
+    },
+    {
+      "id": "aht10",
+      "name": "AHT10",
+      "manufacturer": "ASAIR",
+      "type": "I2C",
+      "description": "Temperatura e Umidade digital",
+      "addresses": ["0x38"],
+      "protocol": {"bus": "I2C", "speed_hz": 100000, "reg_width": 8},
+      "vars": [
+        {"name": "aht10_temp", "unit": "°C", "decimals": 1, "formula": "(raw * 200 / 1048576) - 50"},
+        {"name": "aht10_hum", "unit": "%", "decimals": 1, "formula": "raw * 100 / 1048576"}
+      ],
+      "test_code_url": "https://raw.githubusercontent.com/houslast3/esp32-sensors/main/code/aht10.c"
+    },
+    {
+      "id": "aht20",
+      "name": "AHT20",
+      "manufacturer": "ASAIR",
+      "type": "I2C",
+      "description": "Temperatura e Umidade digital precisao",
+      "addresses": ["0x38"],
+      "protocol": {"bus": "I2C", "speed_hz": 100000, "reg_width": 8},
+      "vars": [
+        {"name": "aht20_temp", "unit": "°C", "decimals": 2, "formula": "(raw * 200 / 1048576) - 50"},
+        {"name": "aht20_hum", "unit": "%", "decimals": 2, "formula": "raw * 100 / 1048576"}
+      ],
+      "test_code_url": "https://raw.githubusercontent.com/houslast3/esp32-sensors/main/code/aht20.c"
+    },
+    {
+      "id": "am2320",
+      "name": "AM2320",
+      "manufacturer": "Aosong",
+      "type": "I2C",
+      "description": "Temperatura e Umidade com protocolo I2C",
+      "addresses": ["0x5C"],
+      "protocol": {"bus": "I2C", "speed_hz": 100000, "reg_width": 16},
+      "vars": [
+        {"name": "am2320_temp", "unit": "°C", "decimals": 1, "formula": "raw * 0.1"},
+        {"name": "am2320_hum", "unit": "%", "decimals": 1, "formula": "raw * 0.1"}
+      ],
+      "test_code_url": "https://raw.githubusercontent.com/houslast3/esp32-sensors/main/code/am2320.c"
+    },
+    {
+      "id": "htu21d",
+      "name": "HTU21D",
+      "manufacturer": "TE Connectivity",
+      "type": "I2C",
+      "description": "Temperatura e Umidade precisao",
+      "addresses": ["0x40"],
+      "protocol": {"bus": "I2C", "speed_hz": 100000, "reg_width": 8},
+      "vars": [
+        {"name": "htu21d_temp", "unit": "°C", "decimals": 2, "formula": "-46.85 + 175.72 * raw / 65536.0"},
+        {"name": "htu21d_hum", "unit": "%", "decimals": 1, "formula": "-6 + 125 * raw / 65536.0"}
+      ],
+      "test_code_url": "https://raw.githubusercontent.com/houslast3/esp32-sensors/main/code/htu21d.c"
+    },
+    {
+      "id": "si7021",
+      "name": "Si7021",
+      "manufacturer": "Silicon Labs",
+      "type": "I2C",
+      "description": "Temperatura e Umidade digital",
+      "addresses": ["0x40"],
+      "protocol": {"bus": "I2C", "speed_hz": 100000, "reg_width": 8},
+      "vars": [
+        {"name": "si7021_temp", "unit": "°C", "decimals": 2, "formula": "-46.85 + 175.72 * raw / 65536.0"},
+        {"name": "si7021_hum", "unit": "%", "decimals": 1, "formula": "-6 + 125 * raw / 65536.0"}
+      ],
+      "test_code_url": "https://raw.githubusercontent.com/houslast3/esp32-sensors/main/code/si7021.c"
+    },
+    {
+      "id": "bmp280",
+      "name": "BMP280",
+      "manufacturer": "Bosch",
+      "type": "I2C",
+      "description": "Pressao barometrica e temperatura",
+      "addresses": ["0x76", "0x77"],
+      "protocol": {"bus": "I2C", "speed_hz": 100000, "reg_width": 8},
+      "vars": [
+        {"name": "bmp280_temp", "unit": "°C", "decimals": 2, "formula": "raw * 0.01"},
+        {"name": "bmp280_press", "unit": "hPa", "decimals": 2, "formula": "raw * 0.01"}
+      ],
+      "test_code_url": "https://raw.githubusercontent.com/houslast3/esp32-sensors/main/code/bmp280.c"
+    },
+    {
+      "id": "ccs811",
+      "name": "CCS811",
+      "manufacturer": "AMS",
+      "type": "I2C",
+      "description": "Sensor de qualidade do ar (eCO2, TVOC)",
+      "addresses": ["0x5A", "0x5B"],
+      "protocol": {"bus": "I2C", "speed_hz": 100000, "reg_width": 8},
+      "vars": [
+        {"name": "ccs811_eco2", "unit": "ppm", "decimals": 0, "formula": "raw"},
+        {"name": "ccs811_tvoc", "unit": "ppb", "decimals": 0, "formula": "raw"}
+      ],
+      "test_code_url": "https://raw.githubusercontent.com/houslast3/esp32-sensors/main/code/ccs811.c"
+    },
+    {
+      "id": "scd30",
+      "name": "SCD30",
+      "manufacturer": "Sensirion",
+      "type": "I2C",
+      "description": "Sensor CO2 NDIR precisao",
+      "addresses": ["0x61"],
+      "protocol": {"bus": "I2C", "speed_hz": 100000, "reg_width": 16},
+      "vars": [
+        {"name": "scd30_co2", "unit": "ppm", "decimals": 0, "formula": "raw"},
+        {"name": "scd30_temp", "unit": "°C", "decimals": 1, "formula": "raw"},
+        {"name": "scd30_hum", "unit": "%", "decimals": 1, "formula": "raw"}
+      ],
+      "test_code_url": "https://raw.githubusercontent.com/houslast3/esp32-sensors/main/code/scd30.c"
+    },
+    {
+      "id": "scd4x",
+      "name": "SCD40/SCD41",
+      "manufacturer": "Sensirion",
+      "type": "I2C",
+      "description": "Sensor CO2 compacto",
+      "addresses": ["0x62"],
+      "protocol": {"bus": "I2C", "speed_hz": 100000, "reg_width": 16},
+      "vars": [
+        {"name": "scd4x_co2", "unit": "ppm", "decimals": 0, "formula": "raw"},
+        {"name": "scd4x_temp", "unit": "°C", "decimals": 1, "formula": "raw"},
+        {"name": "scd4x_hum", "unit": "%", "decimals": 1, "formula": "raw"}
+      ],
+      "test_code_url": "https://raw.githubusercontent.com/houslast3/esp32-sensors/main/code/scd4x.c"
+    },
+    {
+      "id": "pms7003",
+      "name": "PMS7003",
+      "manufacturer": "Plantower",
+      "type": "UART",
+      "description": "Sensor de material particulado (PM1.0, PM2.5, PM10)",
+      "addresses": ["UART2"],
+      "protocol": {"bus": "UART", "baud": 9600, "data_bits": 8, "stop_bits": 1, "parity": "N"},
+      "vars": [
+        {"name": "pms7003_pm1", "unit": "ug/m3", "decimals": 0, "formula": "raw"},
+        {"name": "pms7003_pm25", "unit": "ug/m3", "decimals": 0, "formula": "raw"},
+        {"name": "pms7003_pm10", "unit": "ug/m3", "decimals": 0, "formula": "raw"}
+      ],
+      "test_code_url": "https://raw.githubusercontent.com/houslast3/esp32-sensors/main/code/pms7003.c"
+    },
+    {
+      "id": "sps30",
+      "name": "SPS30",
+      "manufacturer": "Sensirion",
+      "type": "I2C",
+      "description": "Sensor de material particulado laser",
+      "addresses": ["0x69"],
+      "protocol": {"bus": "I2C", "speed_hz": 100000, "reg_width": 16},
+      "vars": [
+        {"name": "sps30_pm1", "unit": "ug/m3", "decimals": 1, "formula": "raw"},
+        {"name": "sps30_pm25", "unit": "ug/m3", "decimals": 1, "formula": "raw"},
+        {"name": "sps30_pm4", "unit": "ug/m3", "decimals": 1, "formula": "raw"},
+        {"name": "sps30_pm10", "unit": "ug/m3", "decimals": 1, "formula": "raw"}
+      ],
+      "test_code_url": "https://raw.githubusercontent.com/houslast3/esp32-sensors/main/code/sps30.c"
+    },
+    {
+      "id": "hmc5883l",
+      "name": "HMC5883L",
+      "manufacturer": "Honeywell",
+      "type": "I2C",
+      "description": "Magnetometro 3-axis (bussola digital)",
+      "addresses": ["0x1E"],
+      "protocol": {"bus": "I2C", "speed_hz": 100000, "reg_width": 8},
+      "vars": [
+        {"name": "hmc5883l_mx", "unit": "uT", "decimals": 2, "formula": "raw * 0.1"},
+        {"name": "hmc5883l_my", "unit": "uT", "decimals": 2, "formula": "raw * 0.1"},
+        {"name": "hmc5883l_mz", "unit": "uT", "decimals": 2, "formula": "raw * 0.1"}
+      ],
+      "test_code_url": "https://raw.githubusercontent.com/houslast3/esp32-sensors/main/code/hmc5883l.c"
+    },
+    {
+      "id": "qmc5883l",
+      "name": "QMC5883L",
+      "manufacturer": "QST",
+      "type": "I2C",
+      "description": "Magnetometro 3-axis (bussola)",
+      "addresses": ["0x0D", "0x2C"],
+      "protocol": {"bus": "I2C", "speed_hz": 100000, "reg_width": 8},
+      "vars": [
+        {"name": "qmc5883l_mx", "unit": "uT", "decimals": 2, "formula": "raw * 0.1"},
+        {"name": "qmc5883l_my", "unit": "uT", "decimals": 2, "formula": "raw * 0.1"},
+        {"name": "qmc5883l_mz", "unit": "uT", "decimals": 2, "formula": "raw * 0.1"}
+      ],
+      "test_code_url": "https://raw.githubusercontent.com/houslast3/esp32-sensors/main/code/qmc5883l.c"
+    },
+    {
+      "id": "ds18b20",
+      "name": "DS18B20",
+      "manufacturer": "Maxim",
+      "type": "OneWire",
+      "description": "Sensor de temperatura parasitavel (OneWire)",
+      "addresses": ["GPIO4", "GPIO16", "GPIO17"],
+      "protocol": {"bus": "OneWire", "speed": "parasitic"},
+      "vars": [
+        {"name": "ds18b20_temp", "unit": "°C", "decimals": 1, "formula": "raw * 0.0625"}
+      ],
+      "test_code_url": "https://raw.githubusercontent.com/houslast3/esp32-sensors/main/code/ds18b20.c"
+    },
+    {
+      "id": "dht22",
+      "name": "DHT22",
+      "manufacturer": "Aosong",
+      "type": "OneWire",
+      "description": "Temperatura e Umidade digital",
+      "addresses": ["GPIO4", "GPIO16", "GPIO17"],
+      "protocol": {"bus": "OneWire", "speed": "custom"},
+      "vars": [
+        {"name": "dht22_temp", "unit": "°C", "decimals": 1, "formula": "raw * 0.1"},
+        {"name": "dht22_hum", "unit": "%", "decimals": 1, "formula": "raw * 0.1"}
+      ],
+      "test_code_url": "https://raw.githubusercontent.com/houslast3/esp32-sensors/main/code/dht22.c"
+    },
+    {
+      "id": "tsl2561",
+      "name": "TSL2561",
+      "manufacturer": "AMS",
+      "type": "I2C",
+      "description": "Sensor de luz digital com faixa dinamica",
+      "addresses": ["0x29", "0x39", "0x49"],
+      "protocol": {"bus": "I2C", "speed_hz": 100000, "reg_width": 8},
+      "vars": [
+        {"name": "tsl2561_lux", "unit": "lux", "decimals": 1, "formula": "raw"}
+      ],
+      "test_code_url": "https://raw.githubusercontent.com/houslast3/esp32-sensors/main/code/tsl2561.c"
+    },
+    {
+      "id": "ina219",
+      "name": "INA219",
+      "manufacturer": "Texas Instruments",
+      "type": "I2C",
+      "description": "Monitor de corrente/tensao/potencia",
+      "addresses": ["0x40", "0x41", "0x42", "0x43", "0x44", "0x45"],
+      "protocol": {"bus": "I2C", "speed_hz": 100000, "reg_width": 16},
+      "vars": [
+        {"name": "ina219_voltage", "unit": "V", "decimals": 3, "formula": "raw * 0.001"},
+        {"name": "ina219_current", "unit": "mA", "decimals": 2, "formula": "raw * 0.1"},
+        {"name": "ina219_power", "unit": "mW", "decimals": 2, "formula": "raw * 0.1"}
+      ],
+      "test_code_url": "https://raw.githubusercontent.com/houslast3/esp32-sensors/main/code/ina219.c"
+    },
+    {
+      "id": "ina260",
+      "name": "INA260",
+      "manufacturer": "Texas Instruments",
+      "type": "I2C",
+      "description": "Monitor de corrente/tensao/potencia precisao",
+      "addresses": ["0x40", "0x41", "0x42", "0x43", "0x44", "0x45"],
+      "protocol": {"bus": "I2C", "speed_hz": 100000, "reg_width": 16},
+      "vars": [
+        {"name": "ina260_voltage", "unit": "V", "decimals": 3, "formula": "raw * 0.001"},
+        {"name": "ina260_current", "unit": "mA", "decimals": 3, "formula": "raw * 0.001"},
+        {"name": "ina260_power", "unit": "W", "decimals": 4, "formula": "raw * 0.00001"}
+      ],
+      "test_code_url": "https://raw.githubusercontent.com/houslast3/esp32-sensors/main/code/ina260.c"
+    },
+    {
+      "id": "mhz19b",
+      "name": "MH-Z19B",
+      "manufacturer": "Winsen",
+      "type": "UART",
+      "description": "Sensor CO2 NDIR",
+      "addresses": ["UART2"],
+      "protocol": {"bus": "UART", "baud": 9600, "data_bits": 8, "stop_bits": 1, "parity": "N"},
+      "vars": [
+        {"name": "mhz19b_co2", "unit": "ppm", "decimals": 0, "formula": "raw"}
+      ],
+      "test_code_url": "https://raw.githubusercontent.com/houslast3/esp32-sensors/main/code/mhz19b.c"
+    },
+    {
+      "id": "nmea_gps",
+      "name": "GPS NMEA",
+      "manufacturer": "Generic",
+      "type": "UART",
+      "description": "Receptor GPS (NMEA 0183)",
+      "addresses": ["UART2"],
+      "protocol": {"bus": "UART", "baud": 9600, "data_bits": 8, "stop_bits": 1, "parity": "N"},
+      "vars": [
+        {"name": "gps_lat", "unit": "°", "decimals": 6, "formula": "raw * 1e-7"},
+        {"name": "gps_lon", "unit": "°", "decimals": 6, "formula": "raw * 1e-7"},
+        {"name": "gps_alt", "unit": "m", "decimals": 1, "formula": "raw"},
+        {"name": "gps_speed", "unit": "km/h", "decimals": 1, "formula": "raw"},
+        {"name": "gps_sats", "unit": "", "decimals": 0, "formula": "raw"}
+      ],
+      "test_code_url": "https://raw.githubusercontent.com/houslast3/esp32-sensors/main/code/nmea_gps.c"
+    },
+    {
+      "id": "veml6070",
+      "name": "VEML6070",
+      "manufacturer": "Vishay",
+      "type": "I2C",
+      "description": "Sensor UV",
+      "addresses": ["0x38", "0x39"],
+      "protocol": {"bus": "I2C", "speed_hz": 100000, "reg_width": 8},
+      "vars": [
+        {"name": "veml6070_uv", "unit": "uW/cm2", "decimals": 1, "formula": "raw"}
+      ],
+      "test_code_url": "https://raw.githubusercontent.com/houslast3/esp32-sensors/main/code/veml6070.c"
+    },
+    {
+      "id": "apds9960",
+      "name": "APDS9960",
+      "manufacturer": "AMS",
+      "type": "I2C",
+      "description": "Sensor de gestos/proximidade/luz/RGB",
+      "addresses": ["0x39"],
+      "protocol": {"bus": "I2C", "speed_hz": 100000, "reg_width": 8},
+      "vars": [
+        {"name": "apds9960_prox", "unit": "", "decimals": 0, "formula": "raw"},
+        {"name": "apds9960_red", "unit": "", "decimals": 0, "formula": "raw"},
+        {"name": "apds9960_green", "unit": "", "decimals": 0, "formula": "raw"},
+        {"name": "apds9960_blue", "unit": "", "decimals": 0, "formula": "raw"}
+      ],
+      "test_code_url": "https://raw.githubusercontent.com/houslast3/esp32-sensors/main/code/apds9960.c"
+    },
+    {
+      "id": "lps22hb",
+      "name": "LPS22HB",
+      "manufacturer": "STMicroelectronics",
+      "type": "I2C",
+      "description": "Sensor de pressao barometrica",
+      "addresses": ["0x5C", "0x5D"],
+      "protocol": {"bus": "I2C", "speed_hz": 100000, "reg_width": 8},
+      "vars": [
+        {"name": "lps22hb_press", "unit": "hPa", "decimals": 2, "formula": "raw / 4096.0"},
+        {"name": "lps22hb_temp", "unit": "°C", "decimals": 1, "formula": "raw / 100.0"}
+      ],
+      "test_code_url": "https://raw.githubusercontent.com/houslast3/esp32-sensors/main/code/lps22hb.c"
+    },
+    {
+      "id": "lsm6ds3",
+      "name": "LSM6DS3",
+      "manufacturer": "STMicroelectronics",
+      "type": "I2C",
+      "description": "IMU 6-axis (acelerometro + giroscopio)",
+      "addresses": ["0x6A", "0x6B"],
+      "protocol": {"bus": "I2C", "speed_hz": 400000, "reg_width": 8},
+      "vars": [
+        {"name": "lsm6ds3_ax", "unit": "g", "decimals": 3, "formula": "raw * 0.061 / 1000"},
+        {"name": "lsm6ds3_ay", "unit": "g", "decimals": 3, "formula": "raw * 0.061 / 1000"},
+        {"name": "lsm6ds3_az", "unit": "g", "decimals": 3, "formula": "raw * 0.061 / 1000"},
+        {"name": "lsm6ds3_gx", "unit": "mdps", "decimals": 0, "formula": "raw * 4.375"},
+        {"name": "lsm6ds3_gy", "unit": "mdps", "decimals": 0, "formula": "raw * 4.375"},
+        {"name": "lsm6ds3_gz", "unit": "mdps", "decimals": 0, "formula": "raw * 4.375"}
+      ],
+      "test_code_url": "https://raw.githubusercontent.com/houslast3/esp32-sensors/main/code/lsm6ds3.c"
+    },
+    {
+      "id": "mlx90614",
+      "name": "MLX90614",
+      "manufacturer": "Melexis",
+      "type": "I2C",
+      "description": "Termometro infravermelho sem contato",
+      "addresses": ["0x5A"],
+      "protocol": {"bus": "I2C", "speed_hz": 100000, "reg_width": 16},
+      "vars": [
+        {"name": "mlx90614_obj", "unit": "°C", "decimals": 2, "formula": "raw * 0.02 - 273.15"},
+        {"name": "mlx90614_amb", "unit": "°C", "decimals": 2, "formula": "raw * 0.02 - 273.15"}
+      ],
+      "test_code_url": "https://raw.githubusercontent.com/houslast3/esp32-sensors/main/code/mlx90614.c"
+    },
+    {
+      "id": "mpr121",
+      "name": "MPR121",
+      "manufacturer": "NXP",
+      "type": "I2C",
+      "description": "Sensor de toque capacitivo 12-canais",
+      "addresses": ["0x5A", "0x5B", "0x5C", "0x5D"],
+      "protocol": {"bus": "I2C", "speed_hz": 100000, "reg_width": 8},
+      "vars": [
+        {"name": "mpr121_touch", "unit": "", "decimals": 0, "formula": "raw"}
+      ],
+      "test_code_url": "https://raw.githubusercontent.com/houslast3/esp32-sensors/main/code/mpr121.c"
+    },
+    {
+      "id": "sgp30",
+      "name": "SGP30",
+      "manufacturer": "Sensirion",
+      "type": "I2C",
+      "description": "Sensor de qualidade do ar (TVOC, eCO2)",
+      "addresses": ["0x58"],
+      "protocol": {"bus": "I2C", "speed_hz": 100000, "reg_width": 16},
+      "vars": [
+        {"name": "sgp30_tvoc", "unit": "ppb", "decimals": 0, "formula": "raw"},
+        {"name": "sgp30_eco2", "unit": "ppm", "decimals": 0, "formula": "raw"}
+      ],
+      "test_code_url": "https://raw.githubusercontent.com/houslast3/esp32-sensors/main/code/sgp30.c"
+    },
+    {
+      "id": "ens160",
+      "name": "ENS160",
+      "manufacturer": "ScioSense",
+      "type": "I2C",
+      "description": "Sensor de qualidade do ar multi-gas",
+      "addresses": ["0x53"],
+      "protocol": {"bus": "I2C", "speed_hz": 100000, "reg_width": 8},
+      "vars": [
+        {"name": "ens160_aqi", "unit": "", "decimals": 0, "formula": "raw"},
+        {"name": "ens160_tvoc", "unit": "ppb", "decimals": 0, "formula": "raw"},
+        {"name": "ens160_eco2", "unit": "ppm", "decimals": 0, "formula": "raw"}
+      ],
+      "test_code_url": "https://raw.githubusercontent.com/houslast3/esp32-sensors/main/code/ens160.c"
+    },
+    {
+      "id": "max44009",
+      "name": "MAX44009",
+      "manufacturer": "Maxim",
+      "type": "I2C",
+      "description": "Sensor de luz ambiente ultra-baixo consumo",
+      "addresses": ["0x4A", "0x4B"],
+      "protocol": {"bus": "I2C", "speed_hz": 100000, "reg_width": 8},
+      "vars": [
+        {"name": "max44009_lux", "unit": "lux", "decimals": 1, "formula": "raw"}
+      ],
+      "test_code_url": "https://raw.githubusercontent.com/houslast3/esp32-sensors/main/code/max44009.c"
+    },
+    {
+      "id": "si1145",
+      "name": "SI1145",
+      "manufacturer": "Silicon Labs",
+      "type": "I2C",
+      "description": "Sensor UV + luz ambiente + proximidade",
+      "addresses": ["0x60"],
+      "protocol": {"bus": "I2C", "speed_hz": 100000, "reg_width": 8},
+      "vars": [
+        {"name": "si1145_uv", "unit": "index", "decimals": 1, "formula": "raw * 0.01"},
+        {"name": "si1145_vis", "unit": "lux", "decimals": 0, "formula": "raw"},
+        {"name": "si1145_ir", "unit": "lux", "decimals": 0, "formula": "raw"}
+      ],
+      "test_code_url": "https://raw.githubusercontent.com/houslast3/esp32-sensors/main/code/si1145.c"
+    }
+  ]
+}
