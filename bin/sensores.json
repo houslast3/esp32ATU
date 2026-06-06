@@ -4,6 +4,10 @@
     "nome": "BMP280 (Pressão/Temp)",
     "protocolo": 1, 
     "endereco": 119,
+    "reg_init": 244,
+    "val_init": 39,
+    "reg_read": 250,
+    "bytes_read": 2,
     "formula": "X / 100.0"
   },
   {
@@ -11,6 +15,10 @@
     "nome": "AHT20 (Umidade/Temp)",
     "protocolo": 1,
     "endereco": 56,
+    "reg_init": 172,
+    "val_init": 51,
+    "reg_read": 0,
+    "bytes_read": 6,
     "formula": "((X * 200) / 1048576) - 50"
   },
   {
@@ -18,13 +26,21 @@
     "nome": "MAX6675 (Termopar)",
     "protocolo": 2,
     "endereco": 0,
+    "reg_init": 0,
+    "val_init": 0,
+    "reg_read": 0,
+    "bytes_read": 2,
     "formula": "X * 0.25"
   },
   {
     "id": 4,
     "nome": "BME280 (Pressão/Umidade/Temp)",
-    "protocolo": 1,
+    "protocolo": 1, 
     "endereco": 118,
+    "reg_init": 244,
+    "val_init": 39,
+    "reg_read": 250,
+    "bytes_read": 2,
     "formula": "X / 100.0"
   },
   {
@@ -32,13 +48,21 @@
     "nome": "CCS811 (Qualidade do Ar / CO2)",
     "protocolo": 1,
     "endereco": 90,
+    "reg_init": 244,
+    "val_init": 0,
+    "reg_read": 2,
+    "bytes_read": 2,
     "formula": "X"
   },
   {
     "id": 6,
     "nome": "DHT22 (Umidade/Temp - Wire)",
-    "protocolo": 1,
+    "protocolo": 4,
     "endereco": 1,
+    "reg_init": 0,
+    "val_init": 0,
+    "reg_read": 0,
+    "bytes_read": 2,
     "formula": "X / 10.0"
   }
 ]
