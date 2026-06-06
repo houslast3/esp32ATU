@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "nome": "BMP280 (Pressao/Temp)",
+    "nome": "BMP280 (Pressão/Temp)",
     "protocolo": 1, 
     "endereco": 119,
     "formula": "X / 100.0"
@@ -22,9 +22,23 @@
   },
   {
     "id": 4,
-    "nome": "Sensor Customizado Multiplicador",
+    "nome": "BME280 (Pressão/Umidade/Temp)",
     "protocolo": 1,
-    "endereco": 40,
-    "formula": "(X * 3.3) / 4095"
+    "endereco": 118,
+    "formula": "X / 100.0"
+  },
+  {
+    "id": 5,
+    "nome": "CCS811 (Qualidade do Ar / CO2)",
+    "protocolo": 1,
+    "endereco": 90,
+    "formula": "X"
+  },
+  {
+    "id": 6,
+    "nome": "DHT22 (Umidade/Temp - Wire)",
+    "protocolo": 1,
+    "endereco": 1,
+    "formula": "X / 10.0"
   }
 ]
