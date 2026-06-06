@@ -1,7 +1,7 @@
 [
   {
     "id": 4,
-    "nome": "BME280 (Temp/Umi/Pressão)",
+    "nome": "BME280 (Temp/Umi/Pressão1)",
     "protocolo": 1, 
     "endereco": 118,
     "reg_init1": 242,
