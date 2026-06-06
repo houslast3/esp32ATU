@@ -1,24 +1,13 @@
 [
   {
-    "id": 1,
-    "nome": "BMP280 (Pressão/Temperatura)",
-    "protocolo": 1, 
-    "endereco": 119,
-    "reg_init": 244,
-    "val_init": 39,
-    "qtd_saidas": 2,
-    "saidas": [
-      { "label": "Temperatura", "reg_read": 250, "bytes_read": 2, "formula": "X / 100.0" },
-      { "label": "Pressão", "reg_read": 247, "bytes_read": 3, "formula": "X / 256.0" }
-    ]
-  },
-  {
     "id": 4,
     "nome": "BME280 (Temp/Umi/Pressão)",
     "protocolo": 1, 
     "endereco": 118,
-    "reg_init": 244,
-    "val_init": 39,
+    "reg_init1": 242,
+    "val_init1": 1,
+    "reg_init2": 244,
+    "val_init2": 39,
     "qtd_saidas": 3,
     "saidas": [
       { "label": "Temperatura", "reg_read": 250, "bytes_read": 2, "formula": "X / 100.0" },
@@ -31,8 +20,10 @@
     "nome": "AHT20 (Umidade/Temperatura)",
     "protocolo": 1,
     "endereco": 56,
-    "reg_init": 172,
-    "val_init": 51,
+    "reg_init1": 172,
+    "val_init1": 51,
+    "reg_init2": 0,
+    "val_init2": 0,
     "qtd_saidas": 2,
     "saidas": [
       { "label": "Temperatura", "reg_read": 0, "bytes_read": 6, "formula": "((X * 200) / 1048576) - 50" },
