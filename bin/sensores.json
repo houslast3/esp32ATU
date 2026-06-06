@@ -2,29 +2,29 @@
   {
     "id": 1,
     "nome": "BMP280 (Pressao/Temp)",
-    "protocolo": 1,
+    "protocolo": 1, 
     "endereco": 119,
-    "formula": "X/100.0"
+    "formula": "X / 100.0"
   },
   {
     "id": 2,
     "nome": "AHT20 (Umidade/Temp)",
     "protocolo": 1,
     "endereco": 56,
-    "formula": "(X*200)/1048576-50"
+    "formula": "((X * 200) / 1048576) - 50"
   },
   {
     "id": 3,
     "nome": "MAX6675 (Termopar)",
     "protocolo": 2,
     "endereco": 0,
-    "formula": "X*0.25"
+    "formula": "X * 0.25"
   },
   {
     "id": 4,
-    "nome": "PZEM-004T (Energia)",
-    "protocolo": 3,
-    "endereco": 1,
-    "formula": "X/10.0"
+    "nome": "Sensor Customizado Multiplicador",
+    "protocolo": 1,
+    "endereco": 40,
+    "formula": "(X * 3.3) / 4095"
   }
 ]
